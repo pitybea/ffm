@@ -51,7 +51,8 @@ class FFM {
   float ffmFunc(const vector<int>& dims,
                 const vector<float>& vals,
                 const vector<int>& fields,
-                int class_indx);
+                int class_indx,
+                vector<vector<vector<float>>>* sumCache = nullptr);
   
       
 };
