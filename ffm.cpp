@@ -135,27 +135,26 @@ void FFM::paraUpdate(const vector<int>& dims,
                                &parameters[i].w0, dl_dw0);
 
     for (size_t j = 0; j < dims.size(); j++) {
-      int fea_indx = dims[j];
+      int fea_dim = dims[j];
       float fea_val = vals[j];
       int field = fields[j];
       float dl_dw = dl_dw0 * fea_val;
-      effective[i].w[fea_indx] =
-          optimizer->ftrlProcess(&ftrl_q[i].w[fea_indx],
-                                 &ftrl_z[i].w[fea_indx],
-                                 &parameters[i].w[fea_indx],
+      effective[i].w[fea_dim] =
+          optimizer->ftrlProcess(&ftrl_q[i].w[fea_dim],
+                                 &ftrl_z[i].w[fea_dim],
+                                 &parameters[i].w[fea_dim],
                                  dl_dw);
       for (int k = 0; k < field_num; k++) {
         for (int m = 0; m < rank_num; m++) {
           float dl_dv = dl_dw0 * sum_cache[i][j][k][m] * fea_val;
-          effective[i].v[fea_indx][k][m] =
-              optimizer->ftrlProcess(&ftrl_q[i].v[fea_indx][k][m],
-                                    &ftrl_z[i].v[fea_indx][k][m],
-                                    &parameters[i].v[fea_indx][k][m],
+          effective[i].v[fea_dim][k][m] =
+              optimizer->ftrlProcess(&ftrl_q[i].v[fea_dim][k][m],
+                                    &ftrl_z[i].v[fea_dim][k][m],
+                                    &parameters[i].v[fea_dim][k][m],
                                     dl_dv);
         }
       }
-      
-    }    
+    }
   }
 }
 
